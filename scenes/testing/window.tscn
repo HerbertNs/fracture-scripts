@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=4 uid="uid://ciqm1ct03hg1w"]
+
+[ext_resource type="Script" uid="uid://dugjkyk13yguh" path="res://scenes/testing/window_manager.gd" id="1_5kwe3"]
+[ext_resource type="Script" uid="uid://dd0nrlgqhocas" path="res://scenes/testing/windowstatemachine.gd" id="1_dq2jw"]
+[ext_resource type="PackedScene" uid="uid://b51uu7cuf8lhl" path="res://scenes/characters/player.tscn" id="3_elfp6"]
+[ext_resource type="Texture2D" uid="uid://0p4j5wsmriib" path="res://tiles and atlas/light_source.jpg" id="4_xs8m4"]
+[ext_resource type="TileSet" uid="uid://bqiw2pad5gerq" path="res://scenes/world_components/tileset.tres" id="5_md4t3"]
+[ext_resource type="TileSet" uid="uid://vje6hfib8s13" path="res://scenes/world_components/background_tiles.tres" id="6_4r4ff"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="window_manager" type="Node" parent="." node_paths=PackedStringArray("windows")]
+script = ExtResource("1_5kwe3")
+windows = [NodePath("Window3"), NodePath("Window2"), NodePath("Window"), NodePath("Window4")]
+
+[node name="Window" type="Window" parent="window_manager"]
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "window1"
+position = Vector2i(248, 225)
+size = Vector2i(300, 300)
+script = ExtResource("1_dq2jw")
+authored_position = Vector2(900, 225)
+authored_size = Vector2(300, 300)
+state = 1
+osc_dir = Vector2(0, 1)
+osc_amp = 120.0
+osc_speed = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="window_manager/Window"]
+
+[node name="Window2" type="Window" parent="window_manager"]
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "window2"
+position = Vector2i(149, 90)
+size = Vector2i(585, 525)
+script = ExtResource("1_dq2jw")
+authored_position = Vector2(150, 90)
+authored_size = Vector2(585, 525)
+state = 2
+
+[node name="Camera2D" type="Camera2D" parent="window_manager/Window2"]
+limit_enabled = false
+
+[node name="Window3" type="Window" parent="window_manager"]
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "window3"
+position = Vector2i(48, 100)
+size = Vector2i(500, 500)
+script = ExtResource("1_dq2jw")
+authored_position = Vector2(583, 280)
+authored_size = Vector2(400, 400)
+pixel_snap = false
+state = 1
+osc_amp = 200.0
+osc_speed = 1.0
+unstable_enabled = false
+unstable_strength = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="window_manager/Window3"]
+limit_enabled = false
+
+[node name="Window4" type="Window" parent="window_manager"]
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "window3"
+position = Vector2i(670, 175)
+size = Vector2i(200, 200)
+script = ExtResource("1_dq2jw")
+authored_position = Vector2(670, 175)
+authored_size = Vector2(200, 200)
+state = 1
+osc_dir = Vector2(1, 1)
+osc_amp = 100.0
+osc_speed = 1.0
+unstable_enabled = false
+unstable_strength = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="window_manager/Window4"]
+limit_enabled = false
+
+[node name="main" type="Node2D" parent="."]
+z_index = 1
+position = Vector2(285, 574)
+
+[node name="Player" parent="main" instance=ExtResource("3_elfp6")]
+z_index = 11
+position = Vector2(-9.999994, -147)
+scale = Vector2(3.7, 3.7)
+gravity = 23.0
+SPEED = 220.0
+
+[node name="darkness" type="PointLight2D" parent="main/Player"]
+light_mask = 3
+position = Vector2(330.00003, 51.538464)
+scale = Vector2(2.2140913, 1.4526914)
+color = Color(0.3134488, 0.30984905, 0.31074616, 1)
+energy = 0.3
+blend_mode = 1
+texture = ExtResource("4_xs8m4")
+texture_scale = 29.5
+metadata/_edit_lock_ = true
+
+[node name="blocks" type="TileMapLayer" parent="main"]
+position = Vector2(329, -100)
+scale = Vector2(3.3, 3.3)
+tile_map_data = PackedByteArray("AAD6/wIAAwAQABwAAAD7/wIAAwAdABwAAAD7/wMAAwAdAB0AAAD8/wIAAwAeABwAAAD8/wMAAwAeAB0AAAD9/wMAAwAdACMAAAACAAIAAwAEACAAAAADAAIAAwAFACAAAAAEAAIAAwAEAB8AAAAEAAMAAwAEACAAAAAFAAIAAwAFAB8AAAAFAAMAAwAFACAAAAANAAIAAwAbAB0AAAAOAAIAAwAcAB0AAADl////AwANAAMAABDl/wAAAwANAAQAABDm////AwAMAAMAABDm/wAAAwAMAAQAABDn////AwALABsAAADn/wAAAwALABwAAADn/wEAAwAOAAMAAADo////AwAMABsAAADo/wAAAwAMABwAAADo/wEAAwAPAAMAAADp////AwALABsAAADp/wAAAwALABwAAADp/wEAAwAMAAEAAADp/wIAAwAMAAIAAADq////AwAMABsAAADq/wAAAwAMABwAAADq/wEAAwANAAEAAADq/wIAAwANAAIAAADr////AwAAAAkAAADr/wAAAwAAAAoAAADr/wEAAwAOAAEAAADs////AwABAAkAAADs/wAAAwABAAoAAADs/wEAAwAPAAEAAADt//7/AwACACMAAADt////AwAAAAUAAADt/wAAAwAAAAYAAADu////AwABAAUAAADu/wAAAwABAAYAAADv////AwANAAMAABDv/wAAAwANAAQAABDw////AwAMAAMAABDw/wAAAwAMAAQAABDx////AwAMAAMAAADx/wAAAwAMAAQAAADy////AwANAAMAAADy/wAAAwANAAQAAADz////AwALABsAAADz/wAAAwALABwAAAD0////AwAMABsAAAD0/wAAAwAMABwAAAD1//7/AwACACMAAAD1////AwAOAAMAAAD2//7/AwABACMAAAD2////AwAPAAMAAAD3//7/AwABACMAAAD3////AwAAAAUAAAD3/wAAAwAAAAYAAAD4////AwABAAUAAAD4/wAAAwABAAYAAAD5//7/AwAPAAEAADD5////AwAdABwAAAD5/wAAAwAdAB0AAAD5/wEAAwAPABsAAAD5/wIAAwAPABwAAAD6//7/AwAOAAEAADD6////AwAeABwAAAD6/wAAAwAdABoAAAD6/wEAAwAQABsAAAD7//3/AwAdABwAAAD7//7/AwAdAB0AAAD7////AwAdABoAAAD7/wAAAwAeABoAAAD7/wEAAwAdACAAAAD8//3/AwAeABwAAAD8//7/AwAeAB0AAAD8////AwAeABoAAAD8/wAAAwAdACMAAAD8/wEAAwAeACAAAAD9//3/AwAPACMAAAD9//7/AwAPACQAAAD9////AwAPABsAAAD9/wAAAwAPABwAAAD+//z/AwABACMAAAD+//3/AwAQACMAAAD+//7/AwAQACQAAAD+////AwAQABsAAAD+/wAAAwAQABwAAAD///z/AwACACMAAAD///3/AwAAAAUAAAD///7/AwAAAAYAAAAAAPz/AwACACMAAAAAAP3/AwABAAUAAAAAAP7/AwABAAYAAAAAAP//AwAdABwAAFAAAAAAAwAeABwAAFABAPz/AwAEACMAAAABAP3/AwAPABsAAAABAP7/AwAPABwAAAABAP//AwAdACIAAAABAAAAAwAdACMAAAACAP3/AwAQABsAAAACAP7/AwAQABwAAAACAP//AwAeACIAAAACAAAAAwAeACMAAAACAAEAAwAEAB8AAAADAP3/AwALABsAAAADAP7/AwALABwAAAADAP//AwAdABwAAAADAAAAAwAeABkAAAADAAEAAwAFAB8AAAAEAP3/AwAMABsAAAAEAP7/AwAMABwAAAAEAP//AwAeABwAAAAEAAAAAwAdABsAAAAEAAEAAwAeABkAAAAFAP3/AwAAAAkAAAAFAP7/AwAAAAoAAAAFAP//AwAdABoAAAAFAAAAAwAdABsAAAAFAAEAAwAeAB0AAAAGAP3/AwABAAkAAAAGAP7/AwABAAoAAAAGAP//AwAeABoAAAAGAAAAAwAeABsAAAAGAAEAAwAbABwAAAAGAAIAAwAbAB0AAAAHAP7/AwAPABsAAAAHAP//AwAPABwAAAAHAAAAAwAdABwAAAAHAAEAAwAcABwAAAAHAAIAAwAcAB0AAAAIAP7/AwAQABsAAAAIAP//AwAQABwAAAAIAAAAAwAeABwAAAAJAP7/AwAAAAUAAAAJAP//AwAAAAYAAAAJAAAAAwAdABwAAFAJAAEAAwAeABwAAFAKAP7/AwABAAUAAAAKAP//AwABAAYAAAAKAAAAAwAdAB0AAAALAP3/AwAdAB4AAAALAP7/AwANAAMAABALAP//AwANAAQAABALAAAAAwAdACIAAAALAAEAAwAdACMAAAAMAP3/AwAeAB4AAAAMAP7/AwAMAAMAABAMAP//AwAMAAQAABAMAAAAAwAeACIAAAAMAAEAAwAeACMAAAANAP7/AwAMAAMAAAANAP//AwAMAAQAAAANAAAAAwAdABoAAAANAAEAAwAbABwAAAAOAP3/AwABACMAAAAOAP7/AwANAAMAAAAOAP//AwANAAQAAAAOAAAAAwAeABoAAAAOAAEAAwAcABwAAAAPAP3/AwACACMAAAAPAP7/AwAAAAkAAAAPAP//AwAAAAoAAAAPAAAAAwAdABwAAAAPAAEAAwAdAB0AAAAPAAIAAwAdABwAAAAQAP7/AwABAAkAAAAQAP//AwABAAoAAAAQAAAAAwAeABwAAAAQAAEAAwAeAB0AAAAQAAIAAwAeABwAAAAQAAMAAwAdABwAAAARAP//AwAdABoAAAARAAAAAwALABsAAAARAAEAAwALABwAAAARAAIAAwAdACIAAAARAAMAAwAeABwAAAASAP//AwAeABoAAAASAAAAAwAMABsAAAASAAEAAwAMABwAAAASAAIAAwAeACIAAAATAP//AwAeAB0AAAATAAAAAwAMAAMAAAATAAEAAwAMAAQAAAATAAIAAwARACMAAAATAAMAAwARACQAAAAUAAAAAwANAAMAAAAUAAEAAwANAAQAAAAUAAIAAwASACMAAAAUAAMAAwASACQAAAAVAAAAAwALABsAAAAVAAEAAwALABwAAAAVAAIAAwAhACMAAAAVAAMAAwAhACQAAAAWAAAAAwAMABsAAAAWAAEAAwAMABwAAAAWAAIAAwAiACMAAAAWAAMAAwAiACQAAAAXAAAAAwAOAAMAAAAXAAEAAwAdACMAAAAXAAIAAwAdACMAAAAXAAMAAwAeABoAAGAXAAQAAwAdABoAAGAYAAAAAwAPAAMAAAAYAAEAAwAeACMAAAAYAAIAAwAeACMAAAAYAAMAAwAdACMAAAAZAAAAAwARACMAAAAZAAEAAwARACQAAAAZAAIAAwAeACUAAAAZAAMAAwAeACMAAAAaAAAAAwASACMAAAAaAAEAAwASACQAAAAaAAMAAwAeACMAAAAbAAEAAwAPAAEAADAcAAEAAwAOAAEAADAUAP//AwADACMAAAAVAP//AwADACMAAAAWAP//AwADACMAAAAXAP//AwADACMAAAANAP3/AwAdACEAAADv/wEAAwAdABwAAADv/wIAAwAdAB0AAADw/wEAAwAeABwAAADw/wIAAwAeAB0AAADx/wIAAwAdACAAAADx/wMAAwAdACEAAADy/wIAAwAeACAAAADy/wMAAwAeACEAAADz/wIAAwAdABoAAAD0/wIAAwAeABoAAADx/wEAAwAeABsAAADy/wEAAwAeABsAAAD0/wMAAwAdACAAAAD1/wMAAwAeACAAAADz/wEAAwAdACAAAAD0/wEAAwAeACAAAAD1/wAAAwAbACIAAAD1/wEAAwAbACMAAAD2/wAAAwAcACIAAAD2/wEAAwAcACMAAAD3/wEAAwAdABgAAAD4/wEAAwAeABgAAAD/////AwAdABgAAFD//wAAAwAeABgAAFD9/wEAAwAdABwAAAD+/wEAAwAeABwAAAD//wEAAwAdACMAAAD4/wIAAwAdACMAAADt/wEAAwAdACMAAADu/wIAAwAdACMAAADu/wEAAwAiACMAAADt/wIAAwAhACMAAAA=")
+tile_set = ExtResource("5_md4t3")
+
+[node name="backtiles" type="TileMapLayer" parent="main"]
+modulate = Color(0.28118682, 0.28118688, 0.28118682, 1)
+z_index = -2
+position = Vector2(329, -72)
+scale = Vector2(3.3, 3.3)
+tile_map_data = PackedByteArray("AADn//3/AgAeABkAAADo//v/AgAdABsAAADo//z/AgAdACIAAADo//3/AgAdACMAAADp//z/AgAeACIAAADp//3/AgAeACMAAADq//3/AgAdAB0AAADr//3/AgAeAB0AAADs//3/AgACACMAAADu//3/AgAIAAcAAADv//3/AgAJAAcAAADw//z/AgAAAAkAAADw//3/AgAAAAoAAADx//z/AgABAAkAAADx//3/AgABAAoAAADy//3/AgAMAAkAAADz//z/AgAdABsAAADz//3/AgANAAkAAAD0//r/AgAiACEAAAD0//v/AgAeACEAAAD0//z/AgAfACAAAAD0//3/AgAfACEAAAD1//v/AgAiACEAAAD1//z/AgAgACAAAAD1//3/AgAgACEAAAD2//3/AgAeACEAAAD5//z/AgABACMAAAD///r/AgAEACMAAAD///v/AgAdACAAAAAAAPv/AgAeACAAAAABAPr/AgARACMAAAABAPv/AgARACQAAAACAPn/AgAeACEAAAACAPr/AgASACMAAAACAPv/AgASACQAAAADAPv/AgAeACEAAAAHAPv/AgAdAB0AAAAHAPz/AgAKAAEAAAAIAPz/AgALAAEAAAAJAPz/AgABACMAAAAKAPz/AgAEACMAAAAMAPv/AgAdABsAAAANAPz/AgAiACMAAAARAP3/AgALABsAAAASAP3/AgAMABsAAAATAP3/AgAEACMAAAAUAPz/AgAiACMAAAAUAP3/AgAbABwAAAAUAP7/AgAbAB0AAAAVAP3/AgAcABwAAAAVAP7/AgAcAB0AAAAWAP3/AgAeACMAAAAWAP7/AgAdAB4AAAAXAP7/AgAeAB4AAAAYAP7/AgABACMAAAAZAP7/AgACACMAAAA=")
+tile_set = ExtResource("6_4r4ff")

@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://v6u01vfs3g7a"]
+
+[ext_resource type="Script" uid="uid://qrktntj4yk7d" path="res://scripts/camera_2d.gd" id="1_waqq6"]
+[ext_resource type="Texture2D" uid="uid://0p4j5wsmriib" path="res://tiles and atlas/light_source.jpg" id="2_xgdsl"]
+[ext_resource type="PackedScene" uid="uid://cc8movr0l77nb" path="res://scenes/world_components/CRT_EFFECT.tscn" id="3_xgdsl"]
+[ext_resource type="Shader" uid="uid://htvcerysxqs2" path="res://scenes/shaders/crt_basic.gdshader" id="4_sj0rt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_huux2"]
+shader = ExtResource("4_sj0rt")
+shader_parameter/screen_resolution = Vector2(453, 240)
+shader_parameter/scanline_intensity = 0.3
+shader_parameter/color_bleed_weight = 0.6190000294025
+
+[node name="Camera2D" type="Camera2D"]
+scale = Vector2(1.3, 1.3)
+offset = Vector2(30, 0)
+zoom = Vector2(1.8, 1.8)
+limit_left = -61
+limit_top = -10000016
+limit_right = 939
+limit_bottom = 9999984
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+script = ExtResource("1_waqq6")
+smoothing_enabled = true
+smoothing_distance = 5
+random_strength = 3.0
+shakeFade = 11.0
+metadata/_edit_vertical_guides_ = [-64.0, 934.0]
+
+[node name="darkness" type="PointLight2D" parent="."]
+light_mask = 3
+position = Vector2(330.00003, 51.538464)
+scale = Vector2(2.2140913, 1.4526914)
+color = Color(0.3134488, 0.30984905, 0.31074616, 1)
+energy = 0.6
+blend_mode = 1
+texture = ExtResource("2_xgdsl")
+texture_scale = 29.5
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" parent="." instance=ExtResource("3_xgdsl")]
+visible = false
+material = SubResource("ShaderMaterial_huux2")
+offset_left = -188.46156
+offset_top = -154.61537
+offset_right = 186.15388
+offset_bottom = 163.07695
